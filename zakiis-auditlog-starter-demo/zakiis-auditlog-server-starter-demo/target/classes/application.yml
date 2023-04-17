@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: zakiis-auditlog-server-demo
+
+  cloud:
+    stream:
+      bindings:
+        auditLog-in-0: #consumer
+          destination: audit-log #topic
+          content-type: application/json
+          # binder: rocketmq1
+      default-binder: rocketmq1  #默认binder
+      binders:
+        rocketmq1: #可以指定多个
+          type: rocketmq
+          environment:
+            spring:
+              cloud:
+                stream:
+                  rocketmq:
+                    binder:
+                      name-server: 192.168.137.101:9876
+                      access-key:
+                      secret-key:
+  elasticsearch:
+    uris:
+    - http://172.16.23.116:9200
+    username: elastic
+    password: ${ELASTICSEARCH_PASSWORD:elastic}
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+zakiis:
+  audit-log:
+    client:
+      enabled: false
+    server:
+      log-index-name: audit-log-2023

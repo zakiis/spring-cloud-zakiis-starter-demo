@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: zakiis-auditlog-client-demo
+  
+  cloud:
+    stream:
+      bindings:
+        auditLog-out-0: #producer
+          destination: audit-log #topic
+          content-type: application/json
+      output-bindings: auditLog #由于没用使用Supplier, Function函数接口的Bean作为发送者，这里手动绑定,多个用;分隔
+      binders:
+        rocketmq1: #可以指定多个
+          type: rocketmq
+          environment:
+            spring:
+              cloud:
+                stream:
+                  rocketmq:
+                    binder:
+                      name-server: 192.168.137.101:9876
+                      access-key:
+                      secret-key:
+
+server:
+  port: 8081
+  servlet:
+    context-path: /
+    
