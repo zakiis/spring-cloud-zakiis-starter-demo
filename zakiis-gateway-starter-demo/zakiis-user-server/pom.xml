@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>io.github.zakiis</groupId>
 		<artifactId>zakiis-gateway-starter-demo</artifactId>
-		<version>2022.0.1-SNAPSHOT</version>
+		<version>2022.0.1-M1</version>
 	</parent>
 
 	<artifactId>zakiis-user-server</artifactId>
