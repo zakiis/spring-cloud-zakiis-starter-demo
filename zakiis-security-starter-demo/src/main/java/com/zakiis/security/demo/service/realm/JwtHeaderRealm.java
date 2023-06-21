@@ -1,12 +1,12 @@
 package com.zakiis.security.demo.service.realm;
 
-import java.util.Collections;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.zakiis.core.exception.ZakiisRuntimeException;
+import com.zakiis.core.exception.web.UnauthorizedException;
 import com.zakiis.core.util.JsonUtil;
 import com.zakiis.security.Realm;
 import com.zakiis.security.demo.domain.constants.SecurityConstant;
@@ -24,7 +24,7 @@ public class JwtHeaderRealm implements Realm {
 	public Set<String> getFunctions(HttpServletRequest request) {
 		String token = request.getHeader(SecurityConstant.TOKEN_HEADER_NAME);
 		if (StringUtils.isBlank(token)) {
-			return Collections.emptySet();
+			throw new UnauthorizedException();
 		}
 		DecodedJwt decodedJwt = JWTUtil.decode(token);
 		if (!"HS256".equals(decodedJwt.getAlgorithm())) {

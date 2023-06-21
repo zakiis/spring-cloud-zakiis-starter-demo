@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zakiis.core.exception.ZakiisRuntimeException;
+import com.zakiis.core.util.AssertUtil;
 import com.zakiis.security.annotation.RateLimit;
 import com.zakiis.user.demo.domain.dto.Response;
 import com.zakiis.user.demo.domain.dto.user.LoginRequest;
@@ -27,9 +27,7 @@ public class AuthController {
 	@PostMapping("login")
 	public Response<UserInfo> login(@RequestBody @Valid LoginRequest reqeust) {
 		UserInfo userInfo = fakeUserService.selectByUsername(reqeust.getUsername());
-		if (!userInfo.getUsername().equals(reqeust.getUsername()) || !userInfo.getPassword().equals(reqeust.getPassword())) {
-			throw new ZakiisRuntimeException("Username or password not correct.");
-		}
+		AssertUtil.notNull(userInfo, "Username or password not correct.");
 		return Response.success(userInfo);
 	}
 	
