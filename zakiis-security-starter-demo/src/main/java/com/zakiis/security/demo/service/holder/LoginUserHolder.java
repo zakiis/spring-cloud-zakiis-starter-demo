@@ -13,7 +13,7 @@ public class LoginUserHolder {
 	}
 	
 	public static UserInfo get() {
-		return context.get(KEY, UserInfo.class);
+		return context.get(KEY);
 	}
 	
 	public static void clear() {
