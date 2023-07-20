@@ -12,6 +12,9 @@ spring:
       httpclient:
         connect-timeout: 5000
         response-timeout: PT60S
+      filter:
+        preserve-host-header:
+          enabled: true #加了后PreserveHostHeaderGatewayFilterFactory已注入到spring，但是filter没执行,NettyRoutingFilter会读取配置去掉Host头
     loadbalancer:
       cache:
         ttl: PT2S
